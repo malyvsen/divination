@@ -1,0 +1,1 @@
+from .divination import Divination
