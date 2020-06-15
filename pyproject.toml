@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "divination"
+version = "0.1.0"
+description = "Automatic forecasting for multiple variables."
+authors = ["malyvsen"]
+
+[tool.poetry.dependencies]
+python=">3.6"
+sklearn = "^0.0"
+numpy = "^1.18.5"
+
+[tool.poetry.dev-dependencies]
+
