@@ -4,7 +4,8 @@ from sklearn.linear_model import Ridge
 
 
 class Divination:
-    def __init__(self, periods=4):
+    def __init__(self, regression=None, periods=4):
+        self.regression = Ridge() if regression is None else regression
         if isinstance(periods, int):
             periods = [2 ** idx for idx in range(periods)]
         self.periods = periods
@@ -12,7 +13,7 @@ class Divination:
 
     def fit(self, data):
         num_last = len(data) - max(self.periods) - 1
-        self.regression = Ridge().fit(
+        self.regression.fit(
             X=self.factors(data.iloc[:-1], num_last),
             y=data.values[-num_last:, :]
         )
