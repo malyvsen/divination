@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import Ridge
 
 
 
@@ -12,8 +12,8 @@ class Divination:
 
     def fit(self, data):
         num_last = len(data) - max(self.periods) - 1
-        self.regression = LinearRegression().fit(
-            X=self.factors(data, num_last),
+        self.regression = Ridge().fit(
+            X=self.factors(data.iloc[:-1], num_last),
             y=data.values[-num_last:, :]
         )
         return self
@@ -30,5 +30,5 @@ class Divination:
 
     def factors(self, data, num_last):
         return np.array([
-            data[var][-period - num_last - 1:-1].rolling(window=period).mean()[-num_last:] for var in data.columns for period in self.periods
+            data[var][-period - num_last:].rolling(window=period).mean()[-num_last:] for var in data.columns for period in self.periods
         ]).transpose()
